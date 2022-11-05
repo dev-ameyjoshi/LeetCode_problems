@@ -9,11 +9,14 @@ public class paranthesis_Check {
         Deque<Character> stack = new ArrayDeque<Character>();
 
         for(int i = 0;i<expr.length();i++){
-           char x = expr.charAt(i);
-           if(x == '('|| x == '[' || x == '{'){
-            stack.push(x);
-            continue;
+            char x = expr.charAt(i); //puts the character at the 0th index.
+            if(x == '('|| x == '[' || x == '{'){
+                stack.push(x);
+                continue;
             }
+            //The charAt() method returns the
+            // character at the specified index in a string.
+            //The index of the first character is 0, the second character is 1, and so on.
 
            if(stack.isEmpty())
                return false;
@@ -44,7 +47,7 @@ public class paranthesis_Check {
         return (stack.isEmpty());
     }
     public static void main(String[] args) {
-       String expr = "([{}])";
+       String expr = "([{}]) ";
 
        if(areBalancedBraceketsBalanced(expr))
            System.out.println("Balanced");

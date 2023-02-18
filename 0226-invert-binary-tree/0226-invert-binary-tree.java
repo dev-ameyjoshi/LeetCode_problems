@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    //Using Postorder traveral and then swapping method.
     public TreeNode invertTree(TreeNode root) {
        if(root == null){
            return root;

@@ -54,7 +54,7 @@ In total, you spent $17 and covered all the days of your travel.
 
 <h2>Solution<h2>
 
-```
+```java
 class Solution {
     public int mincostTickets(int[] days, int[] costs) {
         int lastDay= days[days.length-1];

@@ -15,13 +15,14 @@ class Solution {
         }
         
         int maxLen = 0;
+        
         for(int i = 1;i<=m;i++){
             for(int j = 1;j<=m;j++){
                 if(s.charAt(i-1) == s.charAt(j-1) && i!=j){
                     t[i][j] = t[i-1][j-1] + 1;
-                    maxLen = Math.max(maxLen,t[i][j]);
+                    maxLen = Math.max(maxLen,t[i][j]);// Update maxLen when a repeating substring is found
                 }else{
-                    t[i][j] = 0;
+                    t[i][j] = 0;// Modified to ensure we count only consecutive repeating characters
                 }
             }
         }

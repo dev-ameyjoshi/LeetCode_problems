@@ -13,12 +13,11 @@ class MinStack {
     }
     
     public void pop() {
-        // if(s.isEmpty()) return -1;
+        // if(s.isEmpty()) s.peek() = -
         int ans = s.peek();
         s.pop();
         if(ss.peek() == ans) ss.pop();
-        // else s.pop();
-        // return ans;
+        
     }
     
     public int top() {

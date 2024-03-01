@@ -16,6 +16,7 @@ class Solution {
         return -1;
     }
     
+    //Method to find Min element 
     static int minElement(int []nums , int start , int end,int target,int n){
         
         
@@ -45,6 +46,8 @@ class Solution {
         }
         return -1;
     }
+    
+    //main method to call all the functions.
     public int search(int[] nums, int target) {
         //using our regular algo of binary search to find the min element 
         int start = 0;

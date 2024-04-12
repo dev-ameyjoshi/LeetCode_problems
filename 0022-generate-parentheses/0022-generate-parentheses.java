@@ -9,17 +9,23 @@ class Solution {
         
         //Condition for open bracket that is 
         
-        if(opn != 0){
-            String op1 = op;
-            op1+="(";
-            Solve(opn-1,cl,op1,v);
-        }
+        
         
         //Condtn for closed bracket
         if(cl > opn){
             String op2 = op;
+            String op1 = op;
+            
+            if(opn != 0){
+            op1+="(";
+            Solve(opn-1,cl,op1,v);
+            }
             op2+=")";
             Solve(opn,cl-1,op2,v);
+            
+        }else{
+            op+="(";
+            Solve(opn-1,cl,op,v);
         }
         return v;
     }

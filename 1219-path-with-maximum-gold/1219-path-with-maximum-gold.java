@@ -1,40 +1,36 @@
 class Solution {
-    private final int[] DIRECTIONS = new int[] { 0, 1, 0, -1, 0 };
+    int[] roww = {1, -1, 0, 0};
+    int[] coll = {0, 0, -1, 1};
+    int maxGold = 0;
 
-    public int getMaximumGold(int[][] grid) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-        int maxGold = 0;
+    public int dfs(int[][] grid, int x, int y, int n, int m) {
+        if (x < 0 || x >= n || y < 0 || y >= m || grid[x][y] == 0) return 0;
+        
+        int curr = grid[x][y];
+        grid[x][y] = 0;
+        int localMaxGold = curr;
 
-        // Search for the path with the maximum gold starting from each cell
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                maxGold = Math.max(maxGold, dfsBacktrack(grid, rows, cols, row, col));
-            }
+        for (int i = 0; i < 4; i++) {
+            int newX = x + roww[i];
+            int newY = y + coll[i];
+            localMaxGold = Math.max(localMaxGold, curr + dfs(grid, newX, newY, n, m));
         }
-        return maxGold;
+
+        grid[x][y] = curr;
+        return localMaxGold;
     }
 
-    private int dfsBacktrack(int[][] grid, int rows, int cols, int row, int col) {
-        // Base case: this cell is not in the matrix or this cell has no gold
-        if (row < 0 || col < 0 || row == rows || col == cols || grid[row][col] == 0) {
-            return 0;
-        }
-        int maxGold = 0;
+    public int getMaximumGold(int[][] grid) {
+        int n = grid.length, m = grid[0].length;
 
-        // Mark the cell as visited and save the value
-        int originalVal = grid[row][col];
-        grid[row][col] = 0;
-
-        // Backtrack in each of the four directions
-        for (int direction = 0; direction < 4; direction++) {
-            maxGold = Math.max(maxGold,
-                    dfsBacktrack(grid, rows, cols, DIRECTIONS[direction] + row,
-                                 DIRECTIONS[direction + 1] + col));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] != 0) {
+                    maxGold = Math.max(maxGold, dfs(grid, i, j, n, m));
+                }
+            }
         }
 
-        // Set the cell back to its original value
-        grid[row][col] = originalVal;
-        return maxGold + originalVal;
+        return maxGold;
     }
 }

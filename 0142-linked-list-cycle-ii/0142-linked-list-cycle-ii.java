@@ -15,14 +15,19 @@ public class Solution {
         while (fast != null && fast.next != null) {
             slow = slow.next; // takes 1 step
             fast = fast.next.next; //takes 2 step at a time.
-            if (slow == fast) break;
+            if (slow == fast) 
+            {
+              slow = head;
+              while (fast != slow) {
+              slow = slow.next;
+              fast = fast.next;
+                }
+              return slow;
+            };
         }
          //reached the end and never came back.
-        if (fast == null || fast.next == null) return null;
-        while (head != slow) {
-            head = head.next;
-            slow = slow.next;
-        }
-        return head;
+       return null;
+        
+        
     }
 }

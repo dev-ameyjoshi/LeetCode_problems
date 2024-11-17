@@ -18,7 +18,7 @@ class Solution {
           if(l > q.getFirst()){
             q.removeFirst();
           }
-          
+          //to increment indices when window size is reached.
           if((r + 1) >= k){
             output[l] = nums[q.getFirst()];
             l++;

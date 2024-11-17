@@ -1,58 +1,41 @@
 class Solution {
     public String minWindow(String s, String t) {
-      int i = 0,j = 0;
-      int n = s.length();
-      int minV = Integer.MAX_VALUE;
-      int minStart = 0;
-      HashMap <Character,Integer> mp = new HashMap<Character,Integer>();
-      int reqChar = t.length();
+        int n = s.length();
+        int m = t.length();
+        int cnt = 0;
+        int maxLen = Integer.MAX_VALUE;
+        int l = 0;
+        int sIndex = -1;
       
-      //base conditions
-      if(s == null || s.length() == 0 || t == null || t.length() == 0){
-        return "";
-      }
-      
-      for(char c : t.toCharArray()){
-     
-         mp.put(c,mp.getOrDefault(c,0) + 1);
-      }
-     
-      while(j < n){
-        //To set and initialize the count to 0
-         char currChar = s.charAt(j);
+  HashMap<Character,Integer> map = new HashMap<>();
         
-        if(mp.containsKey(currChar)){
-          if(mp.get(currChar) > 0){
-            reqChar--;
+       for(int i = 0; i < m; i++){
+          map.put(t.charAt(i),map.getOrDefault(t.charAt(i),0)+1);
+       }
+      
+      for(int r = 0;r<n;r++){
+        if(map.getOrDefault(s.charAt(r),0) > 0) cnt++;
+        
+        map.put(s.charAt(r),map.getOrDefault(s.charAt(r),0)-1);
+        
+        while(cnt == m){
+          if(r - l + 1 < maxLen){
+            maxLen = r - l + 1;
+            sIndex = l;
           }
-          mp.put(currChar,mp.get(currChar) - 1);
+          
+          map.put(s.charAt(l),map.getOrDefault(s.charAt(l),0) + 1);
+          
+          if(map.get(s.charAt(l)) > 0) cnt--;
+          
+          l++;
         }
         
-        while(reqChar == 0){
-          if(j-i+1 < minV){
-            minV = j-i+1;
-            minStart = i;
-          }
-          
-          char leftChar = s.charAt(i);
-          if(mp.containsKey(leftChar)){
-            mp.put(leftChar,mp.get(leftChar) + 1);
-            if(mp.get(leftChar)>0){
-              reqChar++;
-            }
-          }
-          
-          i++;
-          
-          
-        }
-        
-        j++;
-       
+         
       }
       
-      
-      return (minV == Integer.MAX_VALUE) ? "" : s.substring(minStart,minStart + minV); 
+        if(sIndex == -1) return "" ;
+        return s.substring(sIndex,sIndex + maxLen);
       
     }
 }
